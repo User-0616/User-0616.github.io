@@ -127,7 +127,13 @@ export default {
       return lyricObj
     },
     audioStart() { 
-       
+    document.one('click touchstart', document.body, function () {
+    let audios = document.getElementsByTagName('audio');
+    for (let i = 0, len = audios.length; i < len; i++) {
+        audios[i].load();
+        audios[i].pause();
+    }
+});
 
             //触屏即加载音乐
 
