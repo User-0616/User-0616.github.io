@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box" @click="audioStart">
+      <div class="start-box" @click="audioStart" @touchstart="audioStart">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -95,21 +95,7 @@ export default {
       return this.playState ? '-7deg' : '-38deg'
     }
   },
-  mounted() {
-    document.addEventListener('click',this.audioStart,false)
-     //触屏即加载音乐
-
-            document.addEventListener('touchstart', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            },
-
-             //进入微信页面即加载
-            document.addEventListener('WeixinJSBridgeReady', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            }))  
-  },
+  
   methods: {
     async getSong() { // 获取歌曲详情, 和歌词方法
       const res = await getSongByIdAPI(this.id)
@@ -142,6 +128,7 @@ export default {
       return lyricObj
     },
     audioStart() { 
+
     document.one('click touchstart', document.body, function () {
     let audio = document.getElementsByTagName('audio');
     for (let i = 0, len = audio.length; i < len; i++) {
@@ -177,6 +164,19 @@ export default {
     }
   },
   mounted() {
+    document.addEventListener('click',this.audioStart,false)
+     //触屏即加载音乐
+
+            document.addEventListener('touchstart', function() {
+            // document.getElementById('media').play()
+            document.getElementById('media').load()
+            },
+
+             //进入微信页面即加载
+            document.addEventListener('WeixinJSBridgeReady', function() {
+            // document.getElementById('media').play()
+            document.getElementById('media').load()
+            }))  
     this.getSong()
     this.showLyric()
     console.log(this.$route.query.id);
