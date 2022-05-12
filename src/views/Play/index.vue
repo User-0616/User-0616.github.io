@@ -60,7 +60,7 @@
       看接口文档: 音乐地址需要带id去获取(但是有的歌曲可能404)
       https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e9%9f%b3%e4%b9%90-url
      -->
-    <audio
+    <audio id="media"
     controls
     muted
       ref="audio"
@@ -131,13 +131,13 @@ export default {
             //触屏即加载音乐
 
             document.addEventListener('touchstart', function() {
-            document.getElementById('audio').play()
+            document.getElementById('media').play()
             },
 
              //进入微信页面即加载
             document.addEventListener('WeixinJSBridgeReady', function() {
-            document.getElementById('audio').play()
-            })       
+            document.getElementById('media').play()
+            }))       
 
 
       // 播放按钮 - 点击事件
