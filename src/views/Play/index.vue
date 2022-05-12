@@ -128,14 +128,21 @@ export default {
       return lyricObj
     },
     audioStart() { 
+      document.addEventListener('click',this.audioStart,false)
+     //触屏即加载音乐
 
-    document.one('click touchstart', document.body, function () {
-    let audio = document.getElementsByTagName('audio');
-    for (let i = 0, len = audio.length; i < len; i++) {
-        audio[i].load();
-        audio[i].pause();
-    }
-});
+            document.addEventListener('touchstart', function() {
+            // document.getElementById('media').play()
+            document.getElementById('media').load()
+            })
+
+//     document.one('touchstart', document.body, function () {
+//     let audio = document.getElementsByTagName('audio');
+//     for (let i = 0, len = audio.length; i < len; i++) {
+//         audio[i].load();
+//         audio[i].pause();
+//     }
+// });
 
                 
 
@@ -172,11 +179,12 @@ export default {
             document.getElementById('media').load()
             },
 
-             //进入微信页面即加载
-            document.addEventListener('WeixinJSBridgeReady', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            }))  
+            //  //进入微信页面即加载
+            // document.addEventListener('WeixinJSBridgeReady', function() {
+            // // document.getElementById('media').play()
+            // document.getElementById('media').load()
+            // })
+            )  
     this.getSong()
     this.showLyric()
     console.log(this.$route.query.id);
