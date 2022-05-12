@@ -125,7 +125,22 @@ export default {
       console.log(lyricObj);
       return lyricObj
     },
-    audioStart() { // 播放按钮 - 点击事件
+    audioStart() { 
+       
+
+            //触屏即加载音乐
+
+            document.addEventListener('touchstart', function() {
+            document.getElementById('audio').play()
+            },
+
+             //进入微信页面即加载
+            document.addEventListener('WeixinJSBridgeReady', function() {
+            document.getElementById('audio').play()
+            })       
+
+
+      // 播放按钮 - 点击事件
       if (!this.playState) { // 如果状态为false
         this.$refs.audio.play() // 调用audio标签的内置方法play可以继续播放声音
         this.$refs.audio.load()
