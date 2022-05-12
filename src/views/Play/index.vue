@@ -60,12 +60,13 @@
       看接口文档: 音乐地址需要带id去获取(但是有的歌曲可能404)
       https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e9%9f%b3%e4%b9%90-url
      -->
-    <Audio
+    <audio
+    controls
     muted
       ref="audio"
       preload="true"
       :src="`https://music.163.com/song/media/outer/url?id=${id}.mp3`"
-    ></Audio >
+    ></audio >
   </div>
 </template>
 
