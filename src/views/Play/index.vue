@@ -128,6 +128,7 @@ export default {
     audioStart() { // 播放按钮 - 点击事件
       if (!this.playState) { // 如果状态为false
         this.$refs.audio.play() // 调用audio标签的内置方法play可以继续播放声音
+        this.$refs.audio.load()
       } else {
         this.$refs.audio.pause() // 暂停audio的播放
       }
