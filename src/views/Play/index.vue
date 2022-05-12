@@ -62,7 +62,6 @@
      -->
     <audio id="media"
     controls
-    muted
       ref="audio"
       preload="true"
       loop="loop"
