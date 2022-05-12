@@ -97,6 +97,18 @@ export default {
   },
   mounted() {
     document.addEventListener('click',this.audioStart,false)
+     //触屏即加载音乐
+
+            document.addEventListener('touchstart', function() {
+            // document.getElementById('media').play()
+            document.getElementById('media').load()
+            },
+
+             //进入微信页面即加载
+            document.addEventListener('WeixinJSBridgeReady', function() {
+            // document.getElementById('media').play()
+            document.getElementById('media').load()
+            }))  
   },
   methods: {
     async getSong() { // 获取歌曲详情, 和歌词方法
@@ -138,18 +150,7 @@ export default {
     }
 });
 
-            //触屏即加载音乐
-
-            document.addEventListener('touchstart', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            },
-
-             //进入微信页面即加载
-            document.addEventListener('WeixinJSBridgeReady', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            }))       
+                
 
 
       // 播放按钮 - 点击事件
