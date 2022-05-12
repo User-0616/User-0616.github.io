@@ -65,6 +65,7 @@
     muted
       ref="audio"
       preload="true"
+      loop="loop"
       :src="`https://music.163.com/song/media/outer/url?id=${id}.mp3`"
     ></audio >
   </div>
@@ -132,11 +133,13 @@ export default {
 
             document.addEventListener('touchstart', function() {
             document.getElementById('media').play()
+            document.getElementById('media').load()
             },
 
              //进入微信页面即加载
             document.addEventListener('WeixinJSBridgeReady', function() {
             document.getElementById('media').play()
+            document.getElementById('media').load()
             }))       
 
 
