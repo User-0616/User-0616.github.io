@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box"  @touchstart="houxie">
+      <div class="start-box"  >
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
