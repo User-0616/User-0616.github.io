@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box"  @touchstart="houxie">
+      <div class="start-box" @click="audioStart" @touchstart="audioStart">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
 
 // 获取歌曲详情和 歌曲的歌词接口
 import { getSongByIdAPI, getLyricByIdAPI } from '@/api'
@@ -133,10 +133,7 @@ export default {
     },
     audioStart() { 
       
-document.addEventListener("WeixinJSBridgeReady", function () { 
-console.log(1111)
-        document.getElementById('media').play(); 
-    }, false);
+document.getElementsByTagName('audio').load();
 
 
                 
