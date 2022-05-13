@@ -133,30 +133,18 @@ export default {
       return lyricObj;
     },
     ceshi() {
-    document.querySelector('bofang').click(function () {
- vMP3 = document.getElementById("myAudio");
- vMP3.load().play(); 
-});
+      this.$refs.audio.addEventListener("touchstart",()=>{
+        this.$refs.audio.play()
+      })
 
-      console.log('触发了给ios的测试');
-      // var music = document.getElementById("media");
-      // var state = 0;
-
-      // document.addEventListener(
-      //   "touchstart",
-      //   function () {
-      //     if (state == 0) {
-      //       music.play();
-      //       state = 1;
-      //     }
-      //   },
-      //   false
-      // );
+      
     },
     audioStart() {
+
       // 播放按钮 - 点击事件
       if (!this.playState) {
         // 如果状态为false
+       
         this.$refs.audio.load();
         this.$refs.audio.play(); // 调用audio标签的内置方法play可以继续播放声音
       } else {
@@ -179,6 +167,7 @@ export default {
     },
   },
   mounted() {
+    this.$refs.audio.load();
     this.getSong();
     this.showLyric();
     console.log(this.$route.query.id);
