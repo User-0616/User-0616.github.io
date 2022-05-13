@@ -160,6 +160,7 @@ export default {
   mounted() {
   
 (function () {
+console.log('挂载执行')
     document.getElementsByTagName('audio').load();
     document.getElementsByTagName('audio').pause();
 }())
