@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box"  >
+      <div class="start-box"  @touchstart="houxie" @click="audioStart">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -203,7 +203,7 @@ console.log(1111)
   overflow: hidden;
   z-index: 1;
   opacity: 1;
-  filter: blur(25px); /*模糊背景 */
+   /*模糊背景filter: blur(25px); */
 }
 .song-bg::before{ /*纯白色的图片做背景, 歌词白色看不到了, 在背景前加入一个黑色半透明蒙层解决 */
   content: " ";
