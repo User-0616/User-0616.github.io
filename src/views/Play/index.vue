@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box" @click="audioStart" @touchstart="audioStart">
+      <div class="start-box"  @touchstart="houxie">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -127,6 +127,9 @@ export default {
       // 返回得到的歌词对象(可以打印看看)
       console.log(lyricObj);
       return lyricObj
+    },
+    houxie(){
+    document.getElementsByTagName('audio').load();
     },
     audioStart() { 
       
