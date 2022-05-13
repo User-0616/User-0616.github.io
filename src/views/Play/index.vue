@@ -203,7 +203,7 @@ console.log(1111)
   overflow: hidden;
   z-index: 1;
   opacity: 1;
-   /*模糊背景filter: blur(25px); */
+   filter: blur(25px);/*模糊背景 */
 }
 .song-bg::before{ /*纯白色的图片做背景, 歌词白色看不到了, 在背景前加入一个黑色半透明蒙层解决 */
   content: " ";
