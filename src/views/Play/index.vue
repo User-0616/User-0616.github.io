@@ -71,28 +71,7 @@
 </template>
 
 <script>
-console.log('挂载执行')
-    document.getElementsByTagName('audio').load();
-    document.getElementsByTagName('audio').pause();
 
-     document.one('touchstart', document.body, function () {
-     let audio = document.getElementsByTagName('audio');
-     for (let i = 0, len = audio.length; i < len; i++) {
-        audio[i].load();
-        audio[i].pause();
-     }
-});
- document.addEventListener('touchstart', function() {
-            // document.getElementById('media').play()
-            document.getElementById('media').load()
-            },
-
-             //进入微信页面即加载
-             document.addEventListener('WeixinJSBridgeReady', function() {
-             document.getElementById('media').play()
-             document.getElementById('media').load()
-             })
-            )  
 // 获取歌曲详情和 歌曲的歌词接口
 import { getSongByIdAPI, getLyricByIdAPI } from '@/api'
 import { Icon } from 'vant'
