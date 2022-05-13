@@ -131,6 +131,7 @@ export default {
     audioStart() { 
       
 document.addEventListener("WeixinJSBridgeReady", function () { 
+console.log(1111)
         document.getElementById('media').play(); 
     }, false);
 
