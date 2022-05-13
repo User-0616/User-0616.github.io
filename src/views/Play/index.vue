@@ -36,7 +36,7 @@
       </div>
       <!-- 播放按钮 -->
 
- <div class="start-box" @click="audioStart" @touchstart="audioStart">
+ <div class="start-box" @click="audioStart" @touchstart="houxie">
 
 
         <span class="song-start" v-show="!playState"></span>
@@ -132,11 +132,14 @@ export default {
       return lyricObj
     },
     houxie(){
-    document.getElementsByTagName('audio').load();
+     document.addEventListener('touchstart', function() {
+            document.getElementById('media').play()
+            document.getElementById('media').load()
+            })
     },
     audioStart() { 
       
-document.getElementsByTagName('audio').load();
+
 
 
                 
