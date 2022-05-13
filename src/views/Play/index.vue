@@ -39,7 +39,7 @@
         class="start-box"
         id="bofang"
         @click="audioStart"
-        @touchstart="doThis"
+        @touchstart="ceshi"
       >
         <span class="song-start" v-show="!playState"></span>
       </div>
@@ -165,26 +165,32 @@ export default {
       
       
     // },
-       doThis() {
-      let _that = this;
-      _that.$refs.audio.load();
-      let playPromise = _that.$refs.audio.play();
-      if (playPromise) {
-        playPromise
-          .then(() => {
-            // 音频加载成功
-            // 音频的播放需要耗时
+    //    doThis() {
+    //   let _that = this;
+    //   _that.$refs.audio.load();
+    //   let playPromise = _that.$refs.audio.play();
+    //   if (playPromise) {
+    //     playPromise
+    //       .then(() => {
+    //         // 音频加载成功
+    //         // 音频的播放需要耗时
 
-            setTimeout(() => {
-              // 后续操作
-              _that.$refs.audio.pause();
-            }, 10); // audio.duration 为音频的时长单位为秒
-          })
-          .catch((e) => {
-            // 音频加载失败
-            console.log(e);
-          });
-      }
+    //         setTimeout(() => {
+    //           // 后续操作
+    //           _that.$refs.audio.pause();
+    //         }, 10); // audio.duration 为音频的时长单位为秒
+    //       })
+    //       .catch((e) => {
+    //         // 音频加载失败
+    //         console.log(e);
+    //       });
+    //   }
+    // },
+    ceshi(){
+      console.log('测试执行l')
+       document.addEventListener("WeixinJSBridgeReady", function () { 
+        document.getElementById('media').play(); 
+    }, false);
     },
     audioStart() {
       
