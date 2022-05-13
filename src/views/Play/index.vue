@@ -159,11 +159,11 @@ export default {
   },
   mounted() {
   
-(function () {
+
 console.log('挂载执行')
     document.getElementsByTagName('audio').load();
     document.getElementsByTagName('audio').pause();
-}())
+
      document.one('touchstart', document.body, function () {
      let audio = document.getElementsByTagName('audio');
      for (let i = 0, len = audio.length; i < len; i++) {
