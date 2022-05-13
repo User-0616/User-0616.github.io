@@ -35,7 +35,12 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box" id="bofang" @click="audioStart" @touchstart="ceshi">
+      <div
+        class="start-box"
+        id="bofang"
+        @click="audioStart"
+        @touchstart="ceshi"
+      >
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -133,18 +138,34 @@ export default {
       return lyricObj;
     },
     ceshi() {
-      this.$refs.audio.addEventListener("touchstart",()=>{
+      // this.$refs.audio.addEventListener("touchstart", () => {
+      //   this.$refs.audio.play();
+      // });
+     
+        console.log("执行了函数")
         this.$refs.audio.play()
-      })
-
+        document.addEventListener(
+          "WeixinJSBridgeReady",
+           () =>{
+            this.$refs.audio.play()
+          },
+          false
+        );
+        document.addEventListener(
+          "YixinJSBridgeReady",
+           () =>{
+            this.$refs.audio.play()
+          },
+          false
+        );
+      
       
     },
     audioStart() {
-
       // 播放按钮 - 点击事件
       if (!this.playState) {
         // 如果状态为false
-       
+
         this.$refs.audio.load();
         this.$refs.audio.play(); // 调用audio标签的内置方法play可以继续播放声音
       } else {
