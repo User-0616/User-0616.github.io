@@ -39,7 +39,7 @@
         class="start-box"
         id="bofang"
         @click="audioStart"
-        @touchstart="ceshi"
+        @touchstart="doThis"
       >
         <span class="song-start" v-show="!playState"></span>
       </div>
@@ -137,33 +137,54 @@ export default {
       console.log(lyricObj);
       return lyricObj;
     },
-    ceshi() {
-      // this.$refs.audio.addEventListener("touchstart", () => {
-      //   this.$refs.audio.play();
-      // });
+    // ceshi() {
+    //   // this.$refs.audio.addEventListener("touchstart", () => {
+    //   //   this.$refs.audio.play();
+    //   // });
      
-        console.log("执行了函数")
-                this.$refs.audio.load()
+    //     console.log("执行了函数")
+    //             this.$refs.audio.load()
 
-        this.$refs.audio.play()
-        document.addEventListener(
-          "WeixinJSBridgeReady",
-           () =>{
-             this.$refs.audio.load()
-            this.$refs.audio.play()
-          },
-          false
-        );
-        document.addEventListener(
-          "YixinJSBridgeReady",
-           () =>{
-             this.$refs.audio.load()
-            this.$refs.audio.play()
-          },
-          false
-        );
+    //     this.$refs.audio.play()
+    //     document.addEventListener(
+    //       "WeixinJSBridgeReady",
+    //        () =>{
+    //          this.$refs.audio.load()
+    //         this.$refs.audio.play()
+    //       },
+    //       false
+    //     );
+    //     document.addEventListener(
+    //       "YixinJSBridgeReady",
+    //        () =>{
+    //          this.$refs.audio.load()
+    //         this.$refs.audio.play()
+    //       },
+    //       false
+    //     );
       
       
+    // },
+       doThis() {
+      let _that = this;
+      _that.$refs.audio.load();
+      let playPromise = _that.$refs.audio.play();
+      if (playPromise) {
+        playPromise
+          .then(() => {
+            // 音频加载成功
+            // 音频的播放需要耗时
+
+            setTimeout(() => {
+              // 后续操作
+              _that.$refs.audio.pause();
+            }, 10); // audio.duration 为音频的时长单位为秒
+          })
+          .catch((e) => {
+            // 音频加载失败
+            console.log(e);
+          });
+      }
     },
     audioStart() {
       
