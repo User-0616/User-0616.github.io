@@ -35,11 +35,10 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-<<<<<<< HEAD
-      <div class="start-box" @click="audioStart" @touchstart="audioStart">
-=======
-      <div class="start-box"  @touchstart="houxie" @click="audioStart">
->>>>>>> 20794034674d3c94150da37b6aa4b77b93dea3c8
+
+ <div class="start-box" @click="audioStart" @touchstart="audioStart">
+
+
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
