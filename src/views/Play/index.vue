@@ -143,10 +143,13 @@ export default {
       // });
      
         console.log("执行了函数")
+                this.$refs.audio.load()
+
         this.$refs.audio.play()
         document.addEventListener(
           "WeixinJSBridgeReady",
            () =>{
+             this.$refs.audio.load()
             this.$refs.audio.play()
           },
           false
@@ -154,6 +157,7 @@ export default {
         document.addEventListener(
           "YixinJSBridgeReady",
            () =>{
+             this.$refs.audio.load()
             this.$refs.audio.play()
           },
           false
@@ -162,6 +166,7 @@ export default {
       
     },
     audioStart() {
+      
       // 播放按钮 - 点击事件
       if (!this.playState) {
         // 如果状态为false
