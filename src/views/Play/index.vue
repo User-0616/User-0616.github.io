@@ -72,9 +72,7 @@
 
 <script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-document.addEventListener("WeixinJSBridgeReady", function () { 
-        document.getElementById('media').play(); 
-    }, false);
+
 // 获取歌曲详情和 歌曲的歌词接口
 import { getSongByIdAPI, getLyricByIdAPI } from '@/api'
 import { Icon } from 'vant'
@@ -132,7 +130,9 @@ export default {
     },
     audioStart() { 
       
-
+document.addEventListener("WeixinJSBridgeReady", function () { 
+        document.getElementById('media').play(); 
+    }, false);
 
 
                 
