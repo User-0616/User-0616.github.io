@@ -61,10 +61,10 @@
       https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e9%9f%b3%e4%b9%90-url
      -->
     <audio id="media"
-    controls
+   
       ref="audio"
-      preload="true"
-      loop="loop"
+      preload
+      loop
       :src="`https://music.163.com/song/media/outer/url?id=${id}.mp3`"
     ></audio >
   </div>
@@ -158,6 +158,11 @@ export default {
     }
   },
   mounted() {
+  
+(function () {
+    document.getElementsByTagName('audio').load();
+    document.getElementsByTagName('audio').pause();
+}())
      document.one('touchstart', document.body, function () {
      let audio = document.getElementsByTagName('audio');
      for (let i = 0, len = audio.length; i < len; i++) {
