@@ -35,10 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-
- <div class="start-box" @click="audioStart" @touchstart="houxie">
-
-
+      <div class="start-box" @click="audioStart">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -64,18 +61,17 @@
       https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e9%9f%b3%e4%b9%90-url
      -->
     <audio id="media"
-   
+    controls
+    muted
       ref="audio"
-      preload
-      loop
+      preload="true"
+      loop="loop"
       :src="`https://music.163.com/song/media/outer/url?id=${id}.mp3`"
     ></audio >
   </div>
 </template>
 
 <script>
-
-
 // 获取歌曲详情和 歌曲的歌词接口
 import { getSongByIdAPI, getLyricByIdAPI } from '@/api'
 import { Icon } from 'vant'
@@ -99,7 +95,6 @@ export default {
       return this.playState ? '-7deg' : '-38deg'
     }
   },
-  
   methods: {
     async getSong() { // 获取歌曲详情, 和歌词方法
       const res = await getSongByIdAPI(this.id)
@@ -131,24 +126,12 @@ export default {
       console.log(lyricObj);
       return lyricObj
     },
-    houxie(){
-     document.addEventListener('touchstart', function() {
-            document.getElementById('media').play()
-            document.getElementById('media').load()
-            })
-    },
     audioStart() { 
-      
-
-
-
-                
-
-
+    
       // 播放按钮 - 点击事件
       if (!this.playState) { // 如果状态为false
-        this.$refs.audio.play() // 调用audio标签的内置方法play可以继续播放声音
-        this.$refs.audio.load()
+        this.$refs.audio.load() // 调用audio标签的内置方法play可以继续播放声音
+        this.$refs.audio.play()
       } else {
         this.$refs.audio.pause() // 暂停audio的播放
       }
@@ -169,9 +152,6 @@ export default {
     }
   },
   mounted() {
-  
-
-
     this.getSong()
     this.showLyric()
     console.log(this.$route.query.id);
@@ -206,7 +186,7 @@ export default {
   overflow: hidden;
   z-index: 1;
   opacity: 1;
-   filter: blur(25px);/*模糊背景 */
+  filter: blur(25px); /*模糊背景 */
 }
 .song-bg::before{ /*纯白色的图片做背景, 歌词白色看不到了, 在背景前加入一个黑色半透明蒙层解决 */
   content: " ";
