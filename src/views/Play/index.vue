@@ -35,7 +35,7 @@
         </div>
       </div>
       <!-- 播放按钮 -->
-      <div class="start-box" @click="audioStart">
+      <div class="start-box" @click="audioStart" @touchstart="ceshi">
         <span class="song-start" v-show="!playState"></span>
       </div>
       <!-- 播放歌词容器 -->
@@ -50,7 +50,7 @@
         </h2>
         <!-- 歌词部分-随着时间切换展示一句歌词 -->
         <div class="lrcContent">
-          <p class="lrc">{{curLyric}}</p>
+          <p class="lrc">{{ curLyric }}</p>
         </div>
       </div>
       <!-- 留声机 - 唱臂 -->
@@ -60,103 +60,125 @@
       看接口文档: 音乐地址需要带id去获取(但是有的歌曲可能404)
       https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e9%9f%b3%e4%b9%90-url
      -->
-    <audio id="media"
-    controls
-    muted
+    <audio
+      id="media"
+      controls
+      muted
       ref="audio"
       preload="true"
       loop="loop"
       :src="`https://music.163.com/song/media/outer/url?id=${id}.mp3`"
-    ></audio >
+    ></audio>
   </div>
 </template>
 
 <script>
 // 获取歌曲详情和 歌曲的歌词接口
-import { getSongByIdAPI, getLyricByIdAPI } from '@/api'
-import { Icon } from 'vant'
+import { getSongByIdAPI, getLyricByIdAPI } from "@/api";
+import { Icon } from "vant";
 export default {
   components: {
     [Icon.name]: Icon,
   },
-  name: 'play',
+  name: "play",
   data() {
     return {
       playState: false, // 音乐播放状态(true暂停, false播放)
       id: this.$route.query.id, // 上一页传过来的音乐id
       songInfo: {}, // 歌曲信息
       lyric: {}, // 歌词枚举对象(需要在js拿到歌词写代码处理后, 按照格式保存到这个对象)
-      curLyric: '', // 当前显示哪句歌词
-      lastLy: '' // 记录当前播放歌词
-    }
+      curLyric: "", // 当前显示哪句歌词
+      lastLy: "", // 记录当前播放歌词
+    };
   },
   computed: {
-    needleDeg() { // 留声机-唱臂的位置属性
-      return this.playState ? '-7deg' : '-38deg'
-    }
+    needleDeg() {
+      // 留声机-唱臂的位置属性
+      return this.playState ? "-7deg" : "-38deg";
+    },
   },
   methods: {
-    async getSong() { // 获取歌曲详情, 和歌词方法
-      const res = await getSongByIdAPI(this.id)
-      this.songInfo = res.data.songs[0]
+    async getSong() {
+      // 获取歌曲详情, 和歌词方法
+      const res = await getSongByIdAPI(this.id);
+      this.songInfo = res.data.songs[0];
       // 获取-并调用_formatLyr方法, 处理歌词
-      const lyrContent = await getLyricByIdAPI(this.id)
-      const lyricStr = lyrContent.data.lrc.lyric
-      this.lyric = this._formatLyr(lyricStr)
+      const lyrContent = await getLyricByIdAPI(this.id);
+      const lyricStr = lyrContent.data.lrc.lyric;
+      this.lyric = this._formatLyr(lyricStr);
       // 初始化完毕先显示零秒歌词
-      this.curLyric = this.lyric[0]
+      this.curLyric = this.lyric[0];
     },
     _formatLyr(lyricStr) {
       // 可以看network观察歌词数据是一个大字符串, 进行拆分.
-      let reg = /\[.+?\]/g // 
-      let timeArr = lyricStr.match(reg) // 匹配所有[]字符串以及里面的一切内容, 返回数组
+      let reg = /\[.+?\]/g; //
+      let timeArr = lyricStr.match(reg); // 匹配所有[]字符串以及里面的一切内容, 返回数组
       console.log(timeArr); // ["[00:00.000]", "[00:01.000]", ......]
-      let contentArr = lyricStr.split(/\[.+?\]/).slice(1) // 按照[]拆分歌词字符串, 返回一个数组(下标为0位置元素不要,后面的留下所以截取)
+      let contentArr = lyricStr.split(/\[.+?\]/).slice(1); // 按照[]拆分歌词字符串, 返回一个数组(下标为0位置元素不要,后面的留下所以截取)
       console.log(contentArr);
-      let lyricObj = {} // 保存歌词的对象, key是秒, value是显示的歌词
+      let lyricObj = {}; // 保存歌词的对象, key是秒, value是显示的歌词
       timeArr.forEach((item, index) => {
         // 拆分[00:00.000]这个格式字符串, 把分钟数字取出, 转换成秒
-        let ms = item.split(':')[0].split('')[2] * 60
+        let ms = item.split(":")[0].split("")[2] * 60;
         // 拆分[00:00.000]这个格式字符串, 把十位的秒拿出来, 如果是0, 去拿下一位数字, 否则直接用2位的值
-        let ss = item.split(':')[1].split('.')[0].split('')[0] === '0' ? item.split(':')[1].split('.')[0].split('')[1] : item.split(':')[1].split('.')[0]
+        let ss =
+          item.split(":")[1].split(".")[0].split("")[0] === "0"
+            ? item.split(":")[1].split(".")[0].split("")[1]
+            : item.split(":")[1].split(".")[0];
         // 秒数作为key, 对应歌词作为value
-        lyricObj[ms + Number(ss)] = contentArr[index]
-      })
+        lyricObj[ms + Number(ss)] = contentArr[index];
+      });
       // 返回得到的歌词对象(可以打印看看)
       console.log(lyricObj);
-      return lyricObj
+      return lyricObj;
     },
-    audioStart() { 
-    
+    ceshi() {
+      console.log('触发了给ios的测试');
+      var music = document.getElementById("media");
+      var state = 0;
+
+      document.addEventListener(
+        "touchstart",
+        function () {
+          if (state == 0) {
+            music.play();
+            state = 1;
+          }
+        },
+        false
+      );
+    },
+    audioStart() {
       // 播放按钮 - 点击事件
-      if (!this.playState) { // 如果状态为false
-        this.$refs.audio.load() // 调用audio标签的内置方法play可以继续播放声音
-        this.$refs.audio.play()
+      if (!this.playState) {
+        // 如果状态为false
+        this.$refs.audio.load();
+        this.$refs.audio.play(); // 调用audio标签的内置方法play可以继续播放声音
       } else {
-        this.$refs.audio.pause() // 暂停audio的播放
+        this.$refs.audio.pause(); // 暂停audio的播放
       }
-      this.playState = !this.playState // 点击设置对立状态
+      this.playState = !this.playState; // 点击设置对立状态
     },
     showLyric() {
       // 监听播放audio进度, 切换歌词显示
-      this.$refs.audio.addEventListener('timeupdate', () => {
-        let curTime = Math.floor(this.$refs.audio.currentTime)
+      this.$refs.audio.addEventListener("timeupdate", () => {
+        let curTime = Math.floor(this.$refs.audio.currentTime);
         // 避免空白出现
         if (this.lyric[curTime]) {
-          this.curLyric = this.lyric[curTime]
-          this.lastLy = this.curLyric
+          this.curLyric = this.lyric[curTime];
+          this.lastLy = this.curLyric;
         } else {
-          this.curLyric = this.lastLy
+          this.curLyric = this.lastLy;
         }
-      })
-    }
+      });
+    },
   },
   mounted() {
-    this.getSong()
-    this.showLyric()
+    this.getSong();
+    this.showLyric();
     console.log(this.$route.query.id);
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -188,14 +210,15 @@ export default {
   opacity: 1;
   filter: blur(25px); /*模糊背景 */
 }
-.song-bg::before{ /*纯白色的图片做背景, 歌词白色看不到了, 在背景前加入一个黑色半透明蒙层解决 */
+.song-bg::before {
+  /*纯白色的图片做背景, 歌词白色看不到了, 在背景前加入一个黑色半透明蒙层解决 */
   content: " ";
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
-  bottom:0;
+  bottom: 0;
 }
 .song-wrapper {
   position: fixed;
